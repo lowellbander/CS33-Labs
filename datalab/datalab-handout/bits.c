@@ -181,7 +181,11 @@ int isNonNegative(int x) {
  *   Rating: 3 
  */
 int rotateRight(int x, int n) {
-  return 2;
+    int mask = x << (32 - n);
+    x = x >> n;
+    return x ^ mask;
+    //return x | mask;
+    //return mask;
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -222,5 +226,10 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int isTmin(int x) {
-  return 2;
+  /*
+   * x is Tmin if x == 0x80000000.
+   * */
+  int foo = x << 1; 
+  int bar = ~(x >> 31);
+  return !(foo | bar);
 }
