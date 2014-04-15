@@ -168,7 +168,8 @@ int isNonNegative(int x) {
   /* 
    * x is nonnegative if the MSb is 0.
    * */
-  return 2;
+
+    return !(x>>31);
 }
 
 /*
