@@ -155,10 +155,22 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 int sm2tc(int x) {
-    int foo = (x << 1) >> 1;
-    foo = ~(foo + ~0) + 1;
+    int val = (x << 1) >> 1;
+
+    int sign = !!(x >> 31);
+
+    val = ~(val + ~0) + 1;
+    int shift = !sign << 5;
     int mask = ~0;
-    return mask + foo;
+   // int mask = ~0 << (shift + ~0);
+   // mask = mask << !sign;
+
+    printf("val: %08X\n", val);
+    printf("mask: %08X\n", mask);
+    printf("sign: %08X\n", sign);
+    printf("shift: %i\n", shift);
+
+    return mask + val;
 }
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
