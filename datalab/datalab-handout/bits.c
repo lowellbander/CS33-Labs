@@ -196,8 +196,12 @@ int rotateRight(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    int foo = 1 << n;
-    return foo;
+    /*
+     * Identical to slide 33 of lecture 2 wherein the quotient is biased towards
+     * zero, but ANDing the bias with the sign bit ensures that the bias is only
+     * introduced if x < 0.
+     * */
+    return (x + ((x >> 31) & ((1<<n) + ~0))) >> n;
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
