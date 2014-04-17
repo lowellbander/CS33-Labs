@@ -181,7 +181,13 @@ int isNonNegative(int x) {
  *   Rating: 3 
  */
 int rotateRight(int x, int n) {
-    return 0;
+    /*
+     * Save the bits to be shifted out, shift them out, then add them back in to
+     * the beginning.
+     * */
+    int shiftedOut = x << (~n + 1);
+    int mask = ~((!!n << 31) >> (n + ~0));
+    return ((x >> n) & mask) | shiftedOut;
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
