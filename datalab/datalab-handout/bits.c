@@ -216,7 +216,13 @@ int allOddBits(int x) {
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+  /*
+   *    A^B =    (A & ~B) | (B & ~A)      //definition of XOR
+   * ~(A^B) =  ~((A & ~B) | (B & ~A))
+   *        =   ~(A & ~B) & ~(B & ~A)     // De Morgan's
+   *    A^B = ~(~(A & ~B) & ~(B & ~A)) 
+   * */
+  return ~(~(x & ~y) & ~(~x & y));
 }
 /*
  * isTmin - returns 1 if x is the minimum, two's complement number,
@@ -229,7 +235,5 @@ int isTmin(int x) {
   /*
    * x is Tmin if x == 0x80000000.
    * */
-  int foo = x << 1; 
-  int bar = ~(x >> 31);
-  return !(foo | bar);
+  return 1;
 }
