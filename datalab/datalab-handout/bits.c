@@ -155,23 +155,35 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 int sm2tc(int x) {
-    int val = (x << 1) >> 1;
+    // compute value if negative
+    int ifNeg = (x << 1) >> 1;
+    ifNeg = ~0 + (~(ifNeg + ~0) + 1);
 
+    // compute value if nonnegative
+    int ifNonNeg = (x << 1) >> 1;
+
+    // zero one of the values depending on sign of x
     int sign = !!(x >> 31);
+    int shiftAmountNonNeg = !sign << 5;
+    int shiftAmountNeg = sign << 5;
 
-    val = ~(val + ~0) + 1;
-    int shift = !sign << 5;
-    int mask = ~0;
-   // int mask = ~0 << (shift + ~0);
-   // mask = mask << !sign;
+    printf("shiftAmountNeg: %i\n", shiftAmountNeg);
+    printf("shiftAmountNonNeg: %i\n", shiftAmountNonNeg);
 
-    printf("val: %08X\n", val);
-    printf("mask: %08X\n", mask);
-    printf("sign: %08X\n", sign);
-    printf("shift: %i\n", shift);
+    printf("BEFORE SHIFTING\n");
+    printf("ifNonNeg: %08X\n", ifNonNeg);
+    printf("ifNeg: %08X\n", ifNeg);
 
-    return mask + val;
+    ifNeg = ifNeg << shiftAmountNeg;
+    ifNonNeg = ifNonNeg << shiftAmountNonNeg;
+
+    printf("AFTER SHIFTING\n");
+    printf("ifNonNeg: %08X\n", ifNonNeg);
+    printf("ifNeg: %08X\n", ifNeg);
+
+    return ifNeg | ifNonNeg;
 }
+
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
  *   Example: isNonNegative(-1) = 0.  isNonNegative(0) = 1.
