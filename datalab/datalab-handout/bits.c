@@ -164,8 +164,8 @@ int sm2tc(int x) {
 
     // zero one of the values depending on sign of x
     int sign = !!(x >> 31);
-    int shiftAmountNonNeg = !sign << 5;
-    int shiftAmountNeg = sign << 5;
+    int shiftAmountNeg = (!sign << 5) + ~!sign + 1;
+    int shiftAmountNonNeg = (sign << 5) + ~sign + 1;
 
     printf("shiftAmountNeg: %i\n", shiftAmountNeg);
     printf("shiftAmountNonNeg: %i\n", shiftAmountNonNeg);
@@ -174,8 +174,8 @@ int sm2tc(int x) {
     printf("ifNonNeg: %08X\n", ifNonNeg);
     printf("ifNeg: %08X\n", ifNeg);
 
-    ifNeg = ifNeg << shiftAmountNeg;
-    ifNonNeg = ifNonNeg << shiftAmountNonNeg;
+    ifNonNeg = (ifNonNeg << shiftAmountNonNeg) << sign;
+    ifNeg = (ifNeg << shiftAmountNeg) << !sign;
 
     printf("AFTER SHIFTING\n");
     printf("ifNonNeg: %08X\n", ifNonNeg);
