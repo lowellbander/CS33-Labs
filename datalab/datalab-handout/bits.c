@@ -155,7 +155,10 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 int sm2tc(int x) {
-  return 2;
+    int foo = (x << 1) >> 1;
+    foo = ~(foo + ~0) + 1;
+    int mask = ~0;
+    return mask + foo;
 }
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
@@ -218,7 +221,7 @@ int allOddBits(int x) {
      * */
     int mask = 0xAA;
     mask = (mask << 8) | mask;
-    mask = (mask << 16) | mask;
+    mask = (mask << 16) | mask;     // mask = 0xAAAAAAAA
     return !((mask & x) ^ mask);
 }
 /* 
