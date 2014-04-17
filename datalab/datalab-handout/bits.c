@@ -196,7 +196,8 @@ int rotateRight(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    return 2;
+    int foo = 1 << n;
+    return foo;
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -206,7 +207,10 @@ int divpwr2(int x, int n) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+  int foo = 0xAA;
+  int bar = (foo << 8) | foo;
+  bar = (bar << 16) | bar;
+  return bar ^ x;
 }
 /* 
  * bitXor - x^y using only ~ and & 
@@ -233,7 +237,8 @@ int bitXor(int x, int y) {
  */
 int isTmin(int x) {
   /*
-   * x is Tmin if x == 0x80000000.
+   * x is Tmin if x+x overflows to 0x00000000.
+   * x = 0 also satisfies x+x=0, so return 0 if x+x=0 and x=0.
    * */
-  return 1;
+  return !(x + x) ^ !x;
 }
