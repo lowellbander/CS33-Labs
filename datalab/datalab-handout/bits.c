@@ -144,7 +144,7 @@ NOTES:
  *  Rating: 4
  */
 int howManyBits(int x) {
-  return 0;
+
 }
 /* 
  * sm2tc - Convert from sign-magnitude to two's complement
@@ -155,33 +155,22 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 int sm2tc(int x) {
-    // compute value if negative
-    int ifNeg = (x << 1) >> 1;
-    ifNeg = ~0 + (~(ifNeg + ~0) + 1);
+    /*
+     * find two's complement representation for negative and nonnegative
+     * branches, then kill unused branch.
+     * */
+    int mask = 1 << 31;                 //10000...00000
+    int neg = (mask & x) >> 31;         //11111...1111 if negative, 0000....000 if pos
+    int nonNeg = ~neg;                  //11111...1111 if positive, 0000....000 if neg
+    int sign = mask & x;                //10000...0000 if negative, 0000....000 if pos
 
-    // compute value if nonnegative
-    int ifNonNeg = (x << 1) >> 1;
+    neg = ~(neg + ~0) + sign;
 
-    // zero one of the values depending on sign of x
-    int sign = !!(x >> 31);
-    int shiftAmountNeg = (!sign << 5) + ~!sign + 1;
-    int shiftAmountNonNeg = (sign << 5) + ~sign + 1;
+    // kill the unused branch
+    neg = neg & x;
+    nonNeg = nonNeg & x;                
 
-    printf("shiftAmountNeg: %i\n", shiftAmountNeg);
-    printf("shiftAmountNonNeg: %i\n", shiftAmountNonNeg);
-
-    printf("BEFORE SHIFTING\n");
-    printf("ifNonNeg: %08X\n", ifNonNeg);
-    printf("ifNeg: %08X\n", ifNeg);
-
-    ifNonNeg = (ifNonNeg << shiftAmountNonNeg) << sign;
-    ifNeg = (ifNeg << shiftAmountNeg) << !sign;
-
-    printf("AFTER SHIFTING\n");
-    printf("ifNonNeg: %08X\n", ifNonNeg);
-    printf("ifNeg: %08X\n", ifNeg);
-
-    return ifNeg | ifNonNeg;
+    return (neg | nonNeg);
 }
 
 /* 
