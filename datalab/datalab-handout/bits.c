@@ -207,10 +207,13 @@ int divpwr2(int x, int n) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  int foo = 0xAA;
-  int bar = (foo << 8) | foo;
-  bar = (bar << 16) | bar;
-  return bar ^ x;
+    /*
+     * all odd-numbered bits are set if x & 0xAAAAAAAA == 0xAAAAAAAA.
+     * */
+    int mask = 0xAA;
+    mask = (mask << 8) | mask;
+    mask = (mask << 16) | mask;
+    return !((mask & x) ^ mask);
 }
 /* 
  * bitXor - x^y using only ~ and & 
