@@ -144,7 +144,108 @@ NOTES:
  *  Rating: 4
  */
 int howManyBits(int x) {
+    int result = 0;
 
+    //zomg crude loop here we go
+
+    //1
+    result = result + (x & 1);
+    result = result >> 1;
+    //2
+    result = result + (x & 1);
+    result = result >> 1;
+    //3
+    result = result + (x & 1);
+    result = result >> 1;
+    //4
+    result = result + (x & 1);
+    result = result >> 1;
+    //5
+    result = result + (x & 1);
+    result = result >> 1;
+    //6
+    result = result + (x & 1);
+    result = result >> 1;
+    //7
+    result = result + (x & 1);
+    result = result >> 1;
+    //8
+    result = result + (x & 1);
+    result = result >> 1;
+    //9
+    result = result + (x & 1);
+    result = result >> 1;
+    //10
+    result = result + (x & 1);
+    result = result >> 1;
+    //11
+    result = result + (x & 1);
+    result = result >> 1;
+    //12
+    result = result + (x & 1);
+    result = result >> 1;
+    //13
+    result = result + (x & 1);
+    result = result >> 1;
+    //14
+    result = result + (x & 1);
+    result = result >> 1;
+    //15
+    result = result + (x & 1);
+    result = result >> 1;
+    //16
+    result = result + (x & 1);
+    result = result >> 1;
+    //17
+    result = result + (x & 1);
+    result = result >> 1;
+    //18
+    result = result + (x & 1);
+    result = result >> 1;
+    //19
+    result = result + (x & 1);
+    result = result >> 1;
+    //20
+    result = result + (x & 1);
+    result = result >> 1;
+    //21
+    result = result + (x & 1);
+    result = result >> 1;
+    //22
+    result = result + (x & 1);
+    result = result >> 1;
+    //23
+    result = result + (x & 1);
+    result = result >> 1;
+    //24
+    result = result + (x & 1);
+    result = result >> 1;
+    //25
+    result = result + (x & 1);
+    result = result >> 1;
+    //26
+    result = result + (x & 1);
+    result = result >> 1;
+    //27
+    result = result + (x & 1);
+    result = result >> 1;
+    //28
+    result = result + (x & 1);
+    result = result >> 1;
+    //29
+    result = result + (x & 1);
+    result = result >> 1;
+    //30
+    result = result + (x & 1);
+    result = result >> 1;
+    //31
+    result = result + (x & 1);
+    result = result >> 1;
+    //32
+    result = result + (x & 1);
+    result = result >> 1;
+
+    return result;
 }
 /* 
  * sm2tc - Convert from sign-magnitude to two's complement
@@ -164,11 +265,12 @@ int sm2tc(int x) {
     int nonNeg = ~neg;                  //11111...1111 if positive, 0000....000 if neg
     int sign = mask & x;                //10000...0000 if negative, 0000....000 if pos
 
-    neg = ~(neg + ~0) + sign;
 
     // kill the unused branch
     neg = neg & x;
     nonNeg = nonNeg & x;                
+
+    neg = ~(neg + ~0) + sign;
 
     return (neg | nonNeg);
 }
