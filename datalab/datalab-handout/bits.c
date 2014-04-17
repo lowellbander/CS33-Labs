@@ -181,11 +181,7 @@ int isNonNegative(int x) {
  *   Rating: 3 
  */
 int rotateRight(int x, int n) {
-    int mask = x << (32 - n);
-    x = x >> n;
-    return x ^ mask;
-    //return x | mask;
-    //return mask;
+    return 0;
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
