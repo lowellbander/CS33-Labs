@@ -150,100 +150,100 @@ int howManyBits(int x) {
 
     //1
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //2
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //3
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //4
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //5
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //6
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //7
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //8
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //9
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //10
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //11
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //12
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //13
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //14
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //15
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //16
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //17
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //18
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //19
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //20
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //21
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //22
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //23
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //24
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //25
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //26
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //27
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //28
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //29
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //30
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //31
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
     //32
     result = result + (x & 1);
-    result = result >> 1;
+    x = x >> 1;
 
     return result;
 }
