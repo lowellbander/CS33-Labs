@@ -270,7 +270,7 @@ int sm2tc(int x) {
     neg = neg & x;
     nonNeg = nonNeg & x;                
 
-    neg = ~(neg + ~0) + sign;
+    neg = ~(neg + ~0) + sign;           //does nothing if neg = 0
 
     return (neg | nonNeg);
 }
