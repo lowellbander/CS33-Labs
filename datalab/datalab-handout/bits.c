@@ -144,108 +144,65 @@ NOTES:
  *  Rating: 4
  */
 int howManyBits(int x) {
-    int result = 0;
+   int sign = (x>>31) & 1;
+   int signChain =~sign+1;
+   int placeHolder = 0; /*throwaway variable for various operations*/
+   int c = 2; /*counter to increment to count the bits*/
+   int copy = x; /*to be used for checking if power of 2*/
+   int copy2 = x; /*to be used for checking zero*/
+   int tminCheck =  x ^ (1 << 31);
+   tminCheck = !tminCheck;
+   tminCheck = ~tminCheck+1; /*all ones if x was tmin*/
 
-    //zomg crude loop here we go
+   x = (x & ~signChain) | ((~x +1) & signChain);/*now a positive value*/
+   x = x + ~0;
+   x = (x | x >> 1);
+   x = (x | x >> 2);
+   x = (x | x >> 4);
+   x = (x | x >> 8);
+   x = (x | x >> 16);
+   x = (x + 1); /*x is rounded up to the next power of 2*/
 
-    //1
-    result = result + (x & 1);
-    x = x >> 1;
-    //2
-    result = result + (x & 1);
-    x = x >> 1;
-    //3
-    result = result + (x & 1);
-    x = x >> 1;
-    //4
-    result = result + (x & 1);
-    x = x >> 1;
-    //5
-    result = result + (x & 1);
-    x = x >> 1;
-    //6
-    result = result + (x & 1);
-    x = x >> 1;
-    //7
-    result = result + (x & 1);
-    x = x >> 1;
-    //8
-    result = result + (x & 1);
-    x = x >> 1;
-    //9
-    result = result + (x & 1);
-    x = x >> 1;
-    //10
-    result = result + (x & 1);
-    x = x >> 1;
-    //11
-    result = result + (x & 1);
-    x = x >> 1;
-    //12
-    result = result + (x & 1);
-    x = x >> 1;
-    //13
-    result = result + (x & 1);
-    x = x >> 1;
-    //14
-    result = result + (x & 1);
-    x = x >> 1;
-    //15
-    result = result + (x & 1);
-    x = x >> 1;
-    //16
-    result = result + (x & 1);
-    x = x >> 1;
-    //17
-    result = result + (x & 1);
-    x = x >> 1;
-    //18
-    result = result + (x & 1);
-    x = x >> 1;
-    //19
-    result = result + (x & 1);
-    x = x >> 1;
-    //20
-    result = result + (x & 1);
-    x = x >> 1;
-    //21
-    result = result + (x & 1);
-    x = x >> 1;
-    //22
-    result = result + (x & 1);
-    x = x >> 1;
-    //23
-    result = result + (x & 1);
-    x = x >> 1;
-    //24
-    result = result + (x & 1);
-    x = x >> 1;
-    //25
-    result = result + (x & 1);
-    x = x >> 1;
-    //26
-    result = result + (x & 1);
-    x = x >> 1;
-    //27
-    result = result + (x & 1);
-    x = x >> 1;
-    //28
-    result = result + (x & 1);
-    x = x >> 1;
-    //29
-    result = result + (x & 1);
-    x = x >> 1;
-    //30
-    result = result + (x & 1);
-    x = x >> 1;
-    //31
-    result = result + (x & 1);
-    x = x >> 1;
-    //32
-    result = result + (x & 1);
-    x = x >> 1;
+   /*the following chunks of code follow an algorithm that
+     does five different checks, incrementing the counter
+     for each check so that the result is the bit position
+     of the rounded up value of x*/
+   placeHolder = !(x & (0xFF | 0xFF << 8));
+   placeHolder = ~placeHolder+1; 
+   c += (placeHolder & 16);
 
-    return result;
+   placeHolder = !(x & (0xFF | 0xFF << 16));
+   placeHolder = ~placeHolder + 1;
+   c += (placeHolder & 8);
+
+   placeHolder = 0x0F | 0x0F <<8;
+   placeHolder = placeHolder | placeHolder <<16;
+   placeHolder = !(x & placeHolder);
+   placeHolder = ~placeHolder+1;  
+   c += (placeHolder & 4);
+
+   placeHolder = 0x33 | 0x33 << 8;
+   placeHolder = placeHolder | placeHolder << 16;
+   placeHolder = !(x & placeHolder);
+   placeHolder = ~placeHolder+1;
+   c += (placeHolder & 2);
+
+   placeHolder = 0x55 | 0x55 << 8;
+   placeHolder = placeHolder | placeHolder << 16;
+   placeHolder = !(x & placeHolder);
+   placeHolder = ~placeHolder+1;
+   c += (placeHolder & 1);
+
+   /*determines if x is 0. if so, you want to return 1.*/
+   copy2 = !copy2;
+   copy2 = ~copy2+1;   
+
+   c += ~((tminCheck)&1);
+
+   /*add one to the count if x is a power of 2*/
+   copy = copy & (copy+~0);
+   c += !copy;
+   return (c & ~copy2) | (copy2 & 1);
 }
 /* 
  * sm2tc - Convert from sign-magnitude to two's complement
@@ -369,3 +326,5 @@ int isTmin(int x) {
    * */
   return !(x + x) ^ !x;
 }
+
+
